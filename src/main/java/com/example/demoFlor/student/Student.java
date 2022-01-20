@@ -4,23 +4,52 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-@Entity
-@Table
+@Entity(name="Student")
+@Table(
+       name = "student",
+        uniqueConstraints = {
+               @UniqueConstraint( name = "email_unique", columnNames = "email")
+        }
+)
 public class Student {
     @Id
     @SequenceGenerator(
             name ="student_sequence",
             sequenceName = "student_sequence",
-            allocationSize = 1
+            allocationSize = 1 // en cuanto queremos que se incremente
     )
     @GeneratedValue(
             strategy= GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
 
-    private long id;
+    @Column(
+            name="id",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name="name",
+            nullable = false ,
+            columnDefinition = "TEXT"
+    )
     private String name;
+
+    @Column(
+            name="lastName",
+            nullable = false ,
+            columnDefinition = "TEXT"
+    )
+    private String lastName;
+
+    @Column(
+            name="email",
+            nullable = false ,
+            columnDefinition = "TEXT"
+    )
     private String email;
+
     private LocalDate dob;
     @Transient
     private Integer age;
@@ -28,24 +57,27 @@ public class Student {
     public Student() {
     }
 
-    public Student(long id, String name, String email, LocalDate dob) {
-        this.id = id;
+    public Student(String name,String lastName, String email, LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
+        this.lastName= lastName;
+
     }
 
-    public Student(String name, String email, LocalDate dob) {
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
+    public String getLastName() {
+        return lastName;
     }
 
-    public long getId() {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,6 +118,7 @@ public class Student {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
                 ", age=" + age +

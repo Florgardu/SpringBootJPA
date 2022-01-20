@@ -17,18 +17,21 @@ public class StudentConfig {
            Student maria = new Student(
 
                     "maria",
+                   "fernandez",
                    "maria@gmail.com",
                     LocalDate.of(1990, Month.APRIL, 5)
             );
 
             Student jose = new Student(
                     "jose",
+                    "fernandez",
                     "jose@gmail.com",
                     LocalDate.of(2000, Month.APRIL, 5)
             );
 
             Student alex = new Student(
                     "alex",
+                    "garcia",
                     "alex@gmail.com",
                     LocalDate.of(2007, Month.APRIL, 5)
 
